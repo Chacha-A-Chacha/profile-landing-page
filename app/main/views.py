@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, request, flash
-from flask_mail import Mail, Message
 
 from .forms import ContactForm
-
+from . import mail, message
 # Create a Blueprint instance for the main module
 bp = Blueprint('main', __name__)
 
@@ -51,17 +50,56 @@ def contact():
         name = form.name.data
         email = form.email.data
         subject = form.subject.data
-        message = form.message.data
+        client_message = form.client_message.data
 
-        msg = Message(subject, sender=email, recipients=['your_email@gmail.com'])
-        msg.body = f"From: {name} <{email}>\n\n{message}"
+        msg = message(subject, sender=email, recipients=['your_email@gmail.com'])
+        msg.body = f"From: {name} <{email}>\n\n{client_message}"
 
         try:
             mail.send(msg)
-            flash("Your message has been sent. Thank you for contacting us.")
+            flash("Your client_message has been sent. Thank you for contacting us.")
         except Exception as e:
             flash(f"An error occurred: {e}")
 
     return render_template('main/contact.html', form=form)
 
-    return render_template('contact.html')
+@bp.route('/sitemap.xml')
+def sitemap():
+    """
+    Route for the sitemap.
+
+    Returns:
+        str: Rendered XML for the sitemap.
+    """
+    return render_template('sitemap.xml')
+
+@bp.route('/robots.txt')
+def robots():
+    """
+    Route for the robots.txt file.
+
+    Returns:
+        str: Rendered text for the robots.txt file.
+    """
+    return render_template('robots.txt')
+
+@bp.route('/favicon.ico')
+def favicon():
+    """
+    Route for the favicon.
+
+    Returns:
+        str: Rendered image for the favicon.
+    """
+    return render_template('favicon.ico')
+
+@bp.route('/apple-touch-icon.png')
+def apple_touch_icon():
+    """
+    Route for the apple touch icon.
+
+    Returns:
+        str: Rendered image for the apple touch icon.
+    """
+
+    return render_template('apple-touch-icon.png')  # TODO : FIX THIS

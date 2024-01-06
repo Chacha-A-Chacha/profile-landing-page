@@ -1,10 +1,11 @@
 import os
 from flask import Flask
-from flask_mail import Mail
+from flask_mail import Mail, Message
 
 from config import Config
 
 mail = Mail()
+message = Message()
 
 def create_app():
     """
