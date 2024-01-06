@@ -27,6 +27,18 @@ def create_app():
         app.config.from_object('config.ProductionConfig')
     else:
         raise ValueError(f"Unsupported environment: {env}")
+    
+    # TODO : CONFIGURE MAIL SETTINGS
+    # Configure mail settings
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USE_SSL'] = True
+    app.config['MAIL_USERNAME'] = 'your_email@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'your_password'
+
+    # Create an instance of the Mail class
+    mail = Mail(app)
+
 
     # Register blueprints
     from app.main import bp as main_bp
