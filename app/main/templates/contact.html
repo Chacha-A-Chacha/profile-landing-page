@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Contact Us">
+    <meta name="keywords" content="contact, email, message">
+    <meta name="author" content="Your Name">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="3 month">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="base-url" content="{{ url_for('main.index') }}">
+    <meta name="contact-url" content="{{ url_for('main.contact') }}">
+    <meta name="contact-success-url" content="{{ url_for('main.index') }}">
+    <meta name="contact-fail-url" content="{{ url_for('main.contact') }}">
+    <meta name="contact-redirect-delay" content="5">
+    <meta name="contact-redirect" content="true">
+    <meta name="contact-redirect-message" content="Your message has been sent.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="{{ url_for('main.contact') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Contact Us</title>
+</head>
+<body>
+
+    <h1>Contact Us</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('main.contact') }}">
+        {{ form.hidden_tag() }}
+
+        <label for="name">Name:</label>
+        {{ form.name(class="form-control") }}
+        {% for error in form.name.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        <label for="email">Email:</label>
+        {{ form.email(class="form-control") }}
+        {% for error in form.email.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        <label for="subject">Subject:</label>
+        {{ form.subject(class="form-control") }}
+        {% for error in form.subject.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        <label for="message">Message:</label>
+        {{ form.message(class="form-control") }}
+        {% for error in form.message.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+
+</body>
+</html>

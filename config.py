@@ -7,6 +7,11 @@ class Config:
     Attributes:
         SECRET_KEY (str): A secret key used for session security.
         SQLALCHEMY_TRACK_MODIFICATIONS (bool): Enable or disable modification tracking.
+    
+    Run the following commands in the terminal to set the environment variable:
+        For development: export FLASK_ENV=development
+        For testing: export FLASK_ENV=testing
+        For production: export FLASK_ENV=production
     """
     SECRET_KEY = 'your_secret_key_here'  # Change this to a strong, random value
     SQLALCHEMY_TRACK_MODIFICATIONS = False
