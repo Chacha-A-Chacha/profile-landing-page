@@ -1,9 +1,11 @@
 from flask import Blueprint, render_template, request, flash
 
 from .forms import ContactForm
-from . import mail, message
+from app import mail, message
+
 # Create a Blueprint instance for the main module
 bp = Blueprint('main', __name__)
+
 
 @bp.route('/')
 def index():
@@ -15,6 +17,7 @@ def index():
     """
     return render_template('index.html')
 
+
 @bp.route('/about')
 def about():
     """
@@ -25,6 +28,7 @@ def about():
     """
     return render_template('about.html')
 
+
 @bp.route('/projects')
 def projects():
     """
@@ -34,6 +38,7 @@ def projects():
         str: Rendered HTML for the projects page.
     """
     return render_template('projects.html')
+
 
 @bp.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -63,6 +68,7 @@ def contact():
 
     return render_template('main/contact.html', form=form)
 
+
 @bp.route('/sitemap.xml')
 def sitemap():
     """
@@ -72,6 +78,7 @@ def sitemap():
         str: Rendered XML for the sitemap.
     """
     return render_template('sitemap.xml')
+
 
 @bp.route('/robots.txt')
 def robots():
@@ -83,6 +90,7 @@ def robots():
     """
     return render_template('robots.txt')
 
+
 @bp.route('/favicon.ico')
 def favicon():
     """
@@ -92,6 +100,7 @@ def favicon():
         str: Rendered image for the favicon.
     """
     return render_template('favicon.ico')
+
 
 @bp.route('/apple-touch-icon.png')
 def apple_touch_icon():
